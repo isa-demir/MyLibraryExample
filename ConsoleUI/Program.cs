@@ -18,7 +18,7 @@ namespace ConsoleUI
             
             //bookManager.Add(b1);
 
-            foreach (var book in bookManager.GetBookDetails())
+            foreach (var book in bookManager.GetBookDetails().Data)
             {
                 Console.WriteLine("Başlık : " + book.Title);
                 Console.WriteLine("Yazar : " + book.FirstName + " " + book.LastName);
@@ -27,6 +27,14 @@ namespace ConsoleUI
                 Console.WriteLine("---------------------------------");
 
             }
+            Console.WriteLine();
+            var r1 = bookManager.GetBooks();
+            foreach (var b in r1.Data)
+            {
+                Console.WriteLine(b.Title + " : " + b.Description);
+                Console.WriteLine("---------------------------------");
+            }
+            Console.WriteLine(r1.Message);
         }
     }
 }

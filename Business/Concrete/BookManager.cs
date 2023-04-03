@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -17,24 +18,25 @@ namespace Business.Concrete
             _bookDal = bookDal;
         }
 
-        public void Add(Book book)
+        public IResult Add(Book book)
         {
             _bookDal.Add(book);
+            return new SuccessResult(book.Title + " added successfully.");
         }
 
-        public Book GetBookById(int id)
+        public IDataResult<Book> GetBookById(int id)
         {
-            return _bookDal.Get(p=>p.BookId == id);
+            return new SuccessDataResult<Book>(_bookDal.Get(p => p.BookId == id));
         }
 
-        public List<BookDetailDto> GetBookDetails()
+        public IDataResult<List<BookDetailDto>> GetBookDetails()
         {
-            return _bookDal.GetBookDetails();
+            return new SuccessDataResult<List<BookDetailDto>>(_bookDal.GetBookDetails());
         }
 
-        public List<Book> GetBooks()
+        public IDataResult<List<Book>> GetBooks()
         {
-            return _bookDal.GetAll();
+            return new SuccessDataResult<List<Book>>(_bookDal.GetAll(), "Kitaplar başarıyla getirildi.");
         }
     }
 }
